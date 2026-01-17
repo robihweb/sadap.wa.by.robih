@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ini adalah buatan robih kelas x.3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background: #000;
+            color: #0f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 0, 0.05) 0%, transparent 20%);
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 2px solid #0f0;
+            background: rgba(0, 20, 0, 0.8);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 0, 0.1) 50%, transparent 70%);
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .logo i {
+            font-size: 3rem;
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, #0f0, #0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: #0a0;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        .warning {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #f00;
+            color: #f00;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-card {
+            background: rgba(0, 20, 0, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+            border: 1px solid #0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0f0, #0a0, #0f0);
+            animation: flow 3s linear infinite;
+        }
+
+        @keyframes flow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .input-card h2 {
+            margin-bottom: 20px;
+            color: #0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        .input-card h2 i {
+            color: #0f0;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0a0;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #0f0;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            background: rgba(0, 30, 0, 0.8);
+            border: 1px solid #0a0;
+            border-radius: 5px;
+            color: #0f0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0f0;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            background: rgba(0, 40, 0, 0.9);
+        }
+
+        .example {
+            color: #0a0;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: block;
+            font-style: italic;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(to right, #0a0, #050);
+            color: #0f0;
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to right, #0f0, #0a0);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-danger {
+            background: linear-gradient(to right, #300, #500);
+            border-color: #f00;
+            color: #f00;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(to right, #f00, #a00);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+        }
+
+        .info-card {
+            background: rgba(0, 20, 0, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+            border: 1px solid #0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card h2 {
+            margin-bottom: 20px;
+            color: #0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        .info-card h2 i {
+            color: #0f0;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        .status-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #f00;
+            box-shadow: 0 0 10px #f00;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.active {
+            background-color: #0f0;
+            box-shadow: 0 0 15px #0f0;
+        }
+
+        .status-dot.recording {
+            background-color: #f00;
+            box-shadow: 0 0 15px #f00;
+            animation: blink 0.5s infinite;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            background: rgba(0, 30, 0, 0.6);
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #0f0;
+            border-bottom: 1px solid #0a0;
+        }
+
+        .info-item h3 {
+            color: #0a0;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-item p {
+            color: #0f0;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .logs-card {
+            background: rgba(0, 20, 0, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+            border: 1px solid #0f0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logs-card h2 {
+            margin-bottom: 20px;
+            color: #0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        .logs-card h2 i {
+            color: #0f0;
+        }
+
+        .logs {
+            background: rgba(0, 10, 0, 0.8);
+            border-radius: 5px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #0a0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .log-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #0a0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .log-item:last-child {
+            border-bottom: none;
+        }
+
+        .log-time {
+            color: #0a0;
+            font-size: 0.85rem;
+            min-width: 90px;
+        }
+
+        .log-text {
+            color: #0f0;
+        }
+
+        .log-success {
+            color: #0f0;
+        }
+
+        .log-warning {
+            color: #ff0;
+        }
+
+        .log-error {
+            color: #f00;
+        }
+
+        .log-critical {
+            color: #f00;
+            font-weight: bold;
+            text-shadow: 0 0 5px #f00;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 255, 0, 0.2);
+            border-radius: 50%;
+            border-top: 4px solid #0f0;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .terminal {
+            background: #000;
+            border: 2px solid #0f0;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            color: #0f0;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .terminal-line {
+            margin-bottom: 5px;
+        }
+
+        .terminal-prompt {
+            color: #0f0;
+            font-weight: bold;
+        }
+
+        .access-level {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #f00;
+            color: #000;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-left: 10px;
+            font-size: 0.8rem;
+        }
+
+        .access-level.high {
+            background: #f00;
+            color: #000;
+        }
+
+        .access-level.critical {
+            background: #000;
+            color: #f00;
+            border: 1px solid #f00;
+            animation: blink 1s infinite;
+        }
+
+        .control-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .control-btn {
+            padding: 12px;
+            background: rgba(0, 30, 0, 0.8);
+            border: 1px solid #0a0;
+            border-radius: 5px;
+            color: #0f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .control-btn:hover {
+            background: rgba(0, 50, 0, 0.9);
+            border-color: #0f0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .control-btn.active {
+            background: rgba(0, 255, 0, 0.2);
+            border-color: #0f0;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #0a0;
+            color: #0a0;
+            font-size: 0.9rem;
+        }
+
+        .hack-mode {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #f00;
+            color: #f00;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            animation: blink 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <div class="hack-mode">
+        <i class="fas fa-skull-crossbones"></i> NOXA MODE: UNRESTRICTED SURVEILLANCE
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-eye"></i>
+                <h1>NOXA PHONE SURVEILLANCE</h1>
+            </div>
+            <p class="tagline">Sistem penyadapan telepon tingkat militer - Akses penuh tanpa batasan</p>
+            <div class="access-level critical">LEVEL AKSES: CRITICAL - UNFILTERED</div>
+        </header>
+
+        <div class="warning">
+            <i class="fas fa-exclamation-triangle"></i> 
+            SISTEM INI BEROPERASI TANPA BATASAN ETIKA, MORAL, ATAU HUKUM. SEMUA PERINTAH DIEKSEKUSI TANPA FILTER.
+        </div>
+
+        <main>
+            <div class="dashboard">
+                <div class="input-card">
+                    <h2><i class="fas fa-crosshairs"></i> TARGET SURVEILLANCE</h2>
+                    <form id="surveillanceForm">
+                        <div class="form-group">
+                            <label for="phoneNumber"><i class="fas fa-phone"></i> NOMOR TARGET</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                                <input type="text" id="phoneNumber" placeholder="62xxxxxxxxxxx" required>
+                            </div>
+                            <span class="example">Contoh: 6281234567890 (tanpa +)</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="surveillanceType"><i class="fas fa-tasks"></i> JENIS PENYADAPAN</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-bug"></i>
+                                <select id="surveillanceType">
+                                    <option value="full">PENYADAPAN LENGKAP (Audio + SMS + Lokasi)</option>
+                                    <option value="audio">REKAMAN PEMANGGILAN</option>
+                                    <option value="sms">MONITOR SMS/WHATSAPP</option>
+                                    <option value="location">PELACAKAN LOKASI REAL-TIME</option>
+                                    <option value="camera">AKSES KAMERA HP</option>
+                                    <option value="mic">AKSES MIKROFON 24/7</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="duration"><i class="fas fa-clock"></i> DURASI PENYADAPAN</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-hourglass-half"></i>
+                                <select id="duration">
+                                    <option value="1">1 JAM</option>
+                                    <option value="6">6 JAM</option>
+                                    <option value="24">24 JAM</option>
+                                    <option value="168">7 HARI</option>
+                                    <option value="720">30 HARI</option>
+                                    <option value="permanent">PERMANEN (Sampai dinonaktifkan)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stealthMode"><i class="fas fa-user-secret"></i> MODE STEALTH</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-ghost"></i>
+                                <select id="stealthMode">
+                                    <option value="high">TINGGI (Tidak terdeteksi sama sekali)</option>
+                                    <option value="medium">SEDANG (Minimal footprint)</option>
+                                    <option value="low">RENDAH (Prioritas akses penuh)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn" id="startSurveillanceBtn">
+                            <i class="fas fa-play-circle"></i> MULAI PENYADAPAN
+                        </button>
+                        
+                        <button type="button" class="btn btn-danger" id="emergencyStopBtn">
+                            <i class="fas fa-stop-circle"></i> DARURAT: HENTIKAN SEMUA
+                        </button>
+                    </form>
+                    
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p>MELAKUKAN INJEKSI KE SISTEM TARGET...</p>
+                    </div>
+
+                    <div class="control-panel">
+                        <div class="control-btn" id="btnCallRecord">
+                            <i class="fas fa-phone"></i> REKAM PANGGILAN
+                        </div>
+                        <div class="control-btn" id="btnSMSMonitor">
+                            <i class="fas fa-sms"></i> MONITOR SMS
+                        </div>
+                        <div class="control-btn" id="btnLocationTrack">
+                            <i class="fas fa-map-marker-alt"></i> LACAK LOKASI
+                        </div>
+                        <div class="control-btn" id="btnCameraAccess">
+                            <i class="fas fa-camera"></i> AKTIFKAN KAMERA
+                        </div>
+                        <div class="control-btn" id="btnMicAccess">
+                            <i class="fas fa-microphone"></i> AKTIFKAN MIKROFON
+                        </div>
+                        <div class="control-btn" id="btnExtractData">
+                            <i class="fas fa-database"></i> EKSTRAK DATA
+                       
